@@ -1,7 +1,10 @@
-import { BookOpen, Settings, Sparkles } from 'lucide-react';
+import { BookOpen, Settings, Sparkles, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import { useUser, SignInButton, SignUpButton, UserButton } from '@clerk/clerk-react';
+import { FavoritesService } from '@/services/favoritesService';
+import { useState, useEffect } from 'react';
 
 interface LibraryHeaderProps {
   onApiKeyClick: () => void;
@@ -10,6 +13,29 @@ interface LibraryHeaderProps {
 
 export const LibraryHeader = ({ onApiKeyClick, hasApiKey }: LibraryHeaderProps) => {
   const { isSignedIn, user } = useUser();
+  const [favoritesCount, setFavoritesCount] = useState(0);
+
+  // Update favorites count when user changes or favorites are modified
+  useEffect(() => {
+    if (isSignedIn && user?.id) {
+      const count = FavoritesService.getFavoritesCount(user.id);
+      setFavoritesCount(count);
+    } else {
+      setFavoritesCount(0);
+    }
+  }, [isSignedIn, user?.id]);
+
+  // Listen for favorites changes (could be improved with a context in the future)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isSignedIn && user?.id) {
+        const count = FavoritesService.getFavoritesCount(user.id);
+        setFavoritesCount(count);
+      }
+    }, 1000); // Check every second
+
+    return () => clearInterval(interval);
+  }, [isSignedIn, user?.id]);
 
   return (
     <header className="bg-gradient-hero shadow-elegant">
@@ -48,7 +74,18 @@ export const LibraryHeader = ({ onApiKeyClick, hasApiKey }: LibraryHeaderProps) 
             </Button>
 
             {isSignedIn ? (
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <Link to="/favorites">
+                  <Button variant="outline" className="border-white bg-white/10 text-white hover:bg-white hover:text-library-navy font-semibold">
+                    <Heart className="mr-2 h-4 w-4" />
+                    Favorites
+                    {favoritesCount > 0 && (
+                      <Badge variant="secondary" className="ml-2 bg-white/20 text-white text-xs">
+                        {favoritesCount}
+                      </Badge>
+                    )}
+                  </Button>
+                </Link>
                 <Link to="/dashboard">
                   <Button variant="outline" className="border-white bg-white/10 text-white hover:bg-white hover:text-library-navy font-semibold">
                     Dashboard

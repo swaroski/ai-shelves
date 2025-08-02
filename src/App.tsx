@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
+import Favorites from "./pages/Favorites";
 import WorkspaceSettings from "./pages/WorkspaceSettings";
 import { WorkspaceProvider } from "./contexts/WorkspaceContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -31,6 +32,10 @@ const App = () => (
             <Route 
               path="/dashboard" 
               element={<Dashboard />} 
+            />
+            <Route 
+              path="/favorites" 
+              element={<Favorites />} 
             />
             <Route 
               path="/workspace/settings" 

@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { FavoriteButton } from '@/components/FavoriteButton';
 import {
   BookOpen,
   Calendar,
@@ -129,9 +130,17 @@ export function BookDetailsModal({
                 by {book.author} • {book.year}
               </DialogDescription>
             </div>
-            <Button variant="ghost" size="sm" onClick={onClose}>
-              <X className="h-4 w-4" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <FavoriteButton
+                bookId={book.id}
+                bookTitle={book.title}
+                variant="outline"
+                size="sm"
+              />
+              <Button variant="ghost" size="sm" onClick={onClose}>
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </DialogHeader>
 

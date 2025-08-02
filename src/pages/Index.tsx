@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { useUser, SignInButton, SignUpButton } from '@clerk/clerk-react';
 import { Book } from '@/types/library';
 import { LibraryService } from '@/services/libraryService';
@@ -43,6 +43,7 @@ const Index = () => {
   const [hasApiKey, setHasApiKey] = useState(!!GeminiService.getApiKey());
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [showBookDetails, setShowBookDetails] = useState(false);
+  const signInButtonRef = useRef<HTMLButtonElement>(null);
 
   const filteredBooks = useMemo(() => {
     if (!books.length) return [];
@@ -95,13 +96,14 @@ const Index = () => {
     };
   }, [books]);
 
+  // Helper function to trigger sign-in instead of showing toast
+  const triggerSignIn = () => {
+    signInButtonRef.current?.click();
+  };
+
   const handleAddBook = (bookData: Omit<Book, 'id'>) => {
     if (!isSignedIn) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to add books to your library",
-        variant: "destructive",
-      });
+      triggerSignIn();
       return;
     }
     
@@ -114,11 +116,7 @@ const Index = () => {
 
   const handleUpdateBook = (bookData: Omit<Book, 'id'>) => {
     if (!isSignedIn) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to edit books",
-        variant: "destructive",
-      });
+      triggerSignIn();
       return;
     }
     
@@ -135,11 +133,7 @@ const Index = () => {
 
   const handleDeleteBook = (id: string) => {
     if (!isSignedIn) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to delete books",
-        variant: "destructive",
-      });
+      triggerSignIn();
       return;
     }
     
@@ -155,11 +149,7 @@ const Index = () => {
 
   const handleCheckOut = (id: string, borrower: string, dueDate: string) => {
     if (!isSignedIn) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to check out books",
-        variant: "destructive",
-      });
+      triggerSignIn();
       return;
     }
     
@@ -168,11 +158,7 @@ const Index = () => {
 
   const handleCheckIn = (id: string) => {
     if (!isSignedIn) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to check in books",
-        variant: "destructive",
-      });
+      triggerSignIn();
       return;
     }
     
@@ -213,11 +199,7 @@ const Index = () => {
       <HeroSection 
         onGetStarted={() => {
           if (!isSignedIn) {
-            toast({
-              title: "Authentication Required",
-              description: "Please sign in to start managing your library",
-              variant: "destructive",
-            });
+            triggerSignIn();
             return;
           }
           setShowBookForm(true);
@@ -275,11 +257,7 @@ const Index = () => {
               onGenreChange={setSelectedGenre}
               onAddBook={() => {
                 if (!isSignedIn) {
-                  toast({
-                    title: "Authentication Required",
-                    description: "Please sign in to add books to your library",
-                    variant: "destructive",
-                  });
+                  triggerSignIn();
                   return;
                 }
                 setShowBookForm(true);
@@ -333,6 +311,11 @@ const Index = () => {
         onCheckOut={handleCheckOut}
         onCheckIn={handleCheckIn}
       />
+
+      {/* Hidden SignInButton for programmatic triggering */}
+      <SignInButton mode="modal">
+        <button ref={signInButtonRef} style={{ display: 'none' }} />
+      </SignInButton>
     </div>
   );
 };

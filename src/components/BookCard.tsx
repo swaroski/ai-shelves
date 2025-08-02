@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Book as BookType } from '@/types/library';
+import { FavoriteButton } from '@/components/FavoriteButton';
 import { useToast } from '@/components/ui/use-toast';
 import { GeminiService } from '@/services/geminiService';
 import { useUser } from '@clerk/clerk-react';
@@ -89,7 +90,15 @@ export const BookCard = ({ book, onEdit, onDelete, onCheckOut, onCheckIn, onClic
             <p className="text-muted-foreground font-medium">{book.author}</p>
             <p className="text-sm text-muted-foreground">{book.year}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col items-end gap-2">
+            <FavoriteButton
+              bookId={book.id}
+              bookTitle={book.title}
+              variant="ghost"
+              size="sm"
+              showText={false}
+              className="h-8 w-8 p-0"
+            />
             {book.isAvailable ? (
               <Badge variant="secondary" className="bg-green-100 text-green-800">
                 <CheckCircle className="w-3 h-3 mr-1" />

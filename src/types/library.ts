@@ -28,6 +28,13 @@ export interface BorrowingRecord {
   workspaceId?: string;
 }
 
+export interface UserFavorite {
+  id: string;
+  userId: string;
+  bookId: string;
+  dateAdded: string;
+}
+
 export interface LibraryStats {
   totalBooks: number;
   borrowedBooks: number;
