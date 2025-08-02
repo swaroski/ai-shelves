@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Book as BookType } from '@/types/library';
 import { useToast } from '@/components/ui/use-toast';
 import { GeminiService } from '@/services/geminiService';
+import { useUser } from '@clerk/clerk-react';
 
 interface BookCardProps {
   book: BookType;
@@ -13,10 +14,12 @@ interface BookCardProps {
   onDelete: (id: string) => void;
   onCheckOut: (id: string, borrower: string, dueDate: string) => void;
   onCheckIn: (id: string) => void;
+  onClick?: (book: BookType) => void;
 }
 
-export const BookCard = ({ book, onEdit, onDelete, onCheckOut, onCheckIn }: BookCardProps) => {
+export const BookCard = ({ book, onEdit, onDelete, onCheckOut, onCheckIn, onClick }: BookCardProps) => {
   const { toast } = useToast();
+  const { isSignedIn } = useUser();
   const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
   const [borrower, setBorrower] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -64,8 +67,19 @@ export const BookCard = ({ book, onEdit, onDelete, onCheckOut, onCheckIn }: Book
     });
   };
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't trigger if clicking on buttons or inputs
+    if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('input')) {
+      return;
+    }
+    onClick?.(book);
+  };
+
   return (
-    <Card className="bg-gradient-card shadow-book hover:shadow-elegant transition-spring transform hover:scale-105 group">
+    <Card 
+      className="bg-gradient-card shadow-book hover:shadow-elegant transition-spring transform hover:scale-105 group cursor-pointer"
+      onClick={handleCardClick}
+    >
       <CardHeader className="space-y-3">
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -82,9 +96,14 @@ export const BookCard = ({ book, onEdit, onDelete, onCheckOut, onCheckIn }: Book
                 Available
               </Badge>
             ) : (
-              <Badge variant="destructive">
+              <Badge 
+                variant={book.dueDate && new Date(book.dueDate) < new Date() ? "destructive" : "default"}
+                className={book.dueDate && new Date(book.dueDate) < new Date() ? 
+                  'bg-red-100 text-red-800' : 'bg-orange-100 text-orange-800'
+                }
+              >
                 <XCircle className="w-3 h-3 mr-1" />
-                Borrowed
+                {book.dueDate && new Date(book.dueDate) < new Date() ? 'Overdue' : 'Borrowed'}
               </Badge>
             )}
           </div>
@@ -96,15 +115,22 @@ export const BookCard = ({ book, onEdit, onDelete, onCheckOut, onCheckIn }: Book
             <span>{book.genre}</span>
           </div>
           {!book.isAvailable && book.borrower && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <User className="w-4 h-4" />
-              <span>Borrowed by {book.borrower}</span>
-            </div>
-          )}
-          {!book.isAvailable && book.dueDate && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="w-4 h-4" />
-              <span>Due: {new Date(book.dueDate).toLocaleDateString()}</span>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <User className="w-4 h-4" />
+                <span>Borrowed by {book.borrower}</span>
+              </div>
+              {book.dueDate && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Calendar className="w-4 h-4" />
+                  <span>Due {new Date(book.dueDate).toLocaleDateString()}</span>
+                  {new Date(book.dueDate) < new Date() && (
+                    <Badge variant="destructive" className="text-xs ml-1">
+                      OVERDUE
+                    </Badge>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -166,12 +192,16 @@ export const BookCard = ({ book, onEdit, onDelete, onCheckOut, onCheckIn }: Book
         )}
 
         <div className="flex gap-2 pt-2">
-          <Button variant="outline" size="sm" onClick={() => onEdit(book)}>
-            <Edit className="w-4 h-4" />
-          </Button>
-          <Button variant="destructive" size="sm" onClick={() => onDelete(book.id)}>
-            <Trash2 className="w-4 h-4" />
-          </Button>
+          {isSignedIn && (
+            <>
+              <Button variant="outline" size="sm" onClick={() => onEdit(book)}>
+                <Edit className="w-4 h-4" />
+              </Button>
+              <Button variant="destructive" size="sm" onClick={() => onDelete(book.id)}>
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            </>
+          )}
           {book.isAvailable ? (
             <Button 
               variant="library" 

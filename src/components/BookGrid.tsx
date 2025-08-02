@@ -7,9 +7,10 @@ interface BookGridProps {
   onDelete: (id: string) => void;
   onCheckOut: (id: string, borrower: string, dueDate: string) => void;
   onCheckIn: (id: string) => void;
+  onBookClick?: (book: Book) => void;
 }
 
-export const BookGrid = ({ books, onEdit, onDelete, onCheckOut, onCheckIn }: BookGridProps) => {
+export const BookGrid = ({ books, onEdit, onDelete, onCheckOut, onCheckIn, onBookClick }: BookGridProps) => {
   if (books.length === 0) {
     return (
       <div className="text-center py-12">
@@ -29,6 +30,7 @@ export const BookGrid = ({ books, onEdit, onDelete, onCheckOut, onCheckIn }: Boo
           onDelete={onDelete}
           onCheckOut={onCheckOut}
           onCheckIn={onCheckIn}
+          onClick={onBookClick}
         />
       ))}
     </div>
