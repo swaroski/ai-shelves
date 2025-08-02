@@ -8,6 +8,8 @@ import { BookGrid } from '@/components/BookGrid';
 import { BookForm } from '@/components/BookForm';
 import { LibraryStats } from '@/components/LibraryStats';
 import { ApiKeySetup } from '@/components/ApiKeySetup';
+import { HeroSection } from '@/components/HeroSection';
+import { FeatureCards } from '@/components/FeatureCards';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -103,14 +105,36 @@ const Index = () => {
         hasApiKey={hasApiKey}
       />
 
-      <div className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="books" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 max-w-md">
-            <TabsTrigger value="books">Library Collection</TabsTrigger>
-            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+      {/* Hero Section */}
+      <HeroSection 
+        onGetStarted={() => setShowBookForm(true)}
+        totalBooks={books.length}
+        availableBooks={libraryStats.availableBooks}
+      />
+
+      {/* Feature Highlights */}
+      <FeatureCards />
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="mb-12 text-center animate-fade-in">
+          <h2 className="text-3xl font-bold text-library-navy mb-4">Manage Your Collection</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Organize, track, and discover books with the power of AI-driven insights and modern management tools.
+          </p>
+        </div>
+
+        <Tabs defaultValue="books" className="space-y-8">
+          <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto bg-card shadow-elegant">
+            <TabsTrigger value="books" className="data-[state=active]:bg-library-gold data-[state=active]:text-library-navy">
+              Library Collection
+            </TabsTrigger>
+            <TabsTrigger value="dashboard" className="data-[state=active]:bg-library-gold data-[state=active]:text-library-navy">
+              Analytics Dashboard
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="books" className="space-y-6">
+          <TabsContent value="books" className="space-y-8 animate-fade-in">
             <SearchAndFilters
               searchQuery={searchQuery}
               selectedGenre={selectedGenre}
@@ -129,7 +153,7 @@ const Index = () => {
             />
           </TabsContent>
 
-          <TabsContent value="dashboard">
+          <TabsContent value="dashboard" className="animate-fade-in">
             <LibraryStats stats={libraryStats} books={books} />
           </TabsContent>
         </Tabs>
