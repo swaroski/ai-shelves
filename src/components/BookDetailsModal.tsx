@@ -335,7 +335,7 @@ export function BookDetailsModal({
                 </Button>
               )}
               
-              {!book.isAvailable && onCheckIn && (
+              {!book.isAvailable && onCheckIn && isSignedIn && (
                 <Button 
                   onClick={handleCheckIn} 
                   variant="outline"
@@ -347,7 +347,7 @@ export function BookDetailsModal({
                 </Button>
               )}
               
-              {!isSignedIn && book.isAvailable && (
+              {!isSignedIn && (
                 <Button 
                   disabled 
                   variant="outline"
@@ -355,7 +355,7 @@ export function BookDetailsModal({
                   size="lg"
                 >
                   <User className="w-5 h-5 mr-2" />
-                  Sign in to Check Out
+                  {book.isAvailable ? "Sign in to Check Out" : "Sign in to Return"}
                 </Button>
               )}
             </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Book, Calendar, User, Tag, Sparkles, Edit, Trash2, CheckCircle, XCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,7 @@ import { Book as BookType } from '@/types/library';
 import { FavoriteButton } from '@/components/FavoriteButton';
 import { useToast } from '@/components/ui/use-toast';
 import { GeminiService } from '@/services/geminiService';
-import { useUser } from '@clerk/clerk-react';
+import { useUser, SignInButton } from '@clerk/clerk-react';
 
 interface BookCardProps {
   book: BookType;
@@ -25,6 +25,7 @@ export const BookCard = ({ book, onEdit, onDelete, onCheckOut, onCheckIn, onClic
   const [borrower, setBorrower] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
+  const signInButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleGenerateSummary = async () => {
     setIsGeneratingSummary(true);
@@ -211,22 +212,38 @@ export const BookCard = ({ book, onEdit, onDelete, onCheckOut, onCheckIn, onClic
               </Button>
             </>
           )}
-          {book.isAvailable ? (
+          {isSignedIn ? (
+            book.isAvailable ? (
+              <Button 
+                variant="library" 
+                size="sm" 
+                className="flex-1"
+                onClick={() => setShowCheckoutForm(!showCheckoutForm)}
+              >
+                Check Out
+              </Button>
+            ) : (
+              <Button variant="secondary" size="sm" className="flex-1" onClick={handleCheckIn}>
+                Check In
+              </Button>
+            )
+          ) : (
             <Button 
-              variant="library" 
+              variant="outline" 
               size="sm" 
               className="flex-1"
-              onClick={() => setShowCheckoutForm(!showCheckoutForm)}
+              onClick={() => signInButtonRef.current?.click()}
             >
-              Check Out
-            </Button>
-          ) : (
-            <Button variant="secondary" size="sm" className="flex-1" onClick={handleCheckIn}>
-              Check In
+              {book.isAvailable ? "Check Out" : "Check In"}
             </Button>
           )}
         </div>
       </CardContent>
+      
+      {/* Hidden SignInButton for programmatic triggering */}
+      <SignInButton mode="modal">
+        <button ref={signInButtonRef} style={{ display: 'none' }} />
+      </SignInButton>
     </Card>
   );
 };

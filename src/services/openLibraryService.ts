@@ -40,7 +40,7 @@ export class OpenLibraryService {
   static async getPopularBooks(): Promise<Book[]> {
     try {
       // Try to get a diverse set of popular books
-      const url = `${this.SEARCH_URL}?q=*&sort=rating desc&limit=30&fields=key,title,author_name,first_publish_year,isbn,subject,cover_i`;
+      const url = `${this.SEARCH_URL}?q=*&sort=rating desc&limit=50&fields=key,title,author_name,first_publish_year,isbn,subject,cover_i`;
       
       const response = await fetch(url);
       if (!response.ok) {
@@ -507,6 +507,195 @@ export class OpenLibraryService {
         isbn: '9780735219090',
         tags: ['Mystery', 'Nature', 'Coming of Age'],
         summary: 'A mystery about a young woman who raised herself in the marshes.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-31',
+        title: 'The Seven Husbands of Evelyn Hugo',
+        author: 'Taylor Jenkins Reid',
+        genre: 'Historical Fiction',
+        year: 2017,
+        isbn: '9781501161933',
+        tags: ['Hollywood', 'LGBTQ+', 'Secrets'],
+        summary: 'A reclusive Hollywood icon reveals her secrets to an unknown journalist.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-32',
+        title: 'Atomic Habits',
+        author: 'James Clear',
+        genre: 'Self-Help',
+        year: 2018,
+        isbn: '9780735211292',
+        tags: ['Productivity', 'Psychology', 'Personal Development'],
+        summary: 'A guide to building good habits and breaking bad ones.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-33',
+        title: 'The Silent Patient',
+        author: 'Alex Michaelides',
+        genre: 'Psychological Thriller',
+        year: 2019,
+        isbn: '9781250301697',
+        tags: ['Thriller', 'Psychology', 'Mystery'],
+        summary: 'A woman refuses to speak after murdering her husband.',
+        isAvailable: false,
+        borrower: 'David Kim',
+        dueDate: '2024-08-20',
+        borrowedDate: '2024-08-06',
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-34',
+        title: 'Circe',
+        author: 'Madeline Miller',
+        genre: 'Mythology',
+        year: 2018,
+        isbn: '9780316556347',
+        tags: ['Greek Mythology', 'Fantasy', 'Feminism'],
+        summary: 'The story of Circe, a goddess of magic in Greek mythology.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-35',
+        title: 'The Midnight Library',
+        author: 'Matt Haig',
+        genre: 'Literary Fiction',
+        year: 2020,
+        isbn: '9780525559474',
+        tags: ['Philosophy', 'Life Choices', 'Self-Discovery'],
+        summary: 'A library between life and death where every book is a different life.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-36',
+        title: 'Project Hail Mary',
+        author: 'Andy Weir',
+        genre: 'Science Fiction',
+        year: 2021,
+        isbn: '9780593135204',
+        tags: ['Space', 'Science', 'Humor'],
+        summary: 'A lone astronaut must save humanity from extinction.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-37',
+        title: 'The Song of Achilles',
+        author: 'Madeline Miller',
+        genre: 'Historical Fiction',
+        year: 2011,
+        isbn: '9780062060624',
+        tags: ['Greek Mythology', 'LGBTQ+', 'War'],
+        summary: 'The love story between Achilles and Patroclus during the Trojan War.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-38',
+        title: 'Klara and the Sun',
+        author: 'Kazuo Ishiguro',
+        genre: 'Literary Fiction',
+        year: 2021,
+        isbn: '9780593318171',
+        tags: ['AI', 'Coming of Age', 'Philosophy'],
+        summary: 'An artificial friend observes and learns about human nature.',
+        isAvailable: false,
+        borrower: 'Maria Rodriguez',
+        dueDate: '2024-08-25',
+        borrowedDate: '2024-08-11',
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-39',
+        title: 'The Invisible Life of Addie LaRue',
+        author: 'V.E. Schwab',
+        genre: 'Fantasy',
+        year: 2020,
+        isbn: '9780765387561',
+        tags: ['Magic', 'Immortality', 'Memory'],
+        summary: 'A woman cursed to be forgotten by everyone she meets.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-40',
+        title: 'Normal People',
+        author: 'Sally Rooney',
+        genre: 'Literary Fiction',
+        year: 2018,
+        isbn: '9781984822178',
+        tags: ['Relationships', 'Coming of Age', 'Ireland'],
+        summary: 'The complex relationship between two Irish teenagers.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-41',
+        title: 'The Vanishing Half',
+        author: 'Brit Bennett',
+        genre: 'Literary Fiction',
+        year: 2020,
+        isbn: '9780525536291',
+        tags: ['Race', 'Identity', 'Family'],
+        summary: 'Twin sisters who run away from home and live very different lives.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-42',
+        title: 'Such a Fun Age',
+        author: 'Kiley Reid',
+        genre: 'Contemporary Fiction',
+        year: 2019,
+        isbn: '9780525541905',
+        tags: ['Race', 'Class', 'Relationships'],
+        summary: 'A young babysitter navigates an uncomfortable accusation.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-43',
+        title: 'The Guest List',
+        author: 'Lucy Foley',
+        genre: 'Mystery',
+        year: 2020,
+        isbn: '9780062868930',
+        tags: ['Wedding', 'Secrets', 'Island'],
+        summary: 'A wedding on a remote island goes terribly wrong.',
+        isAvailable: false,
+        borrower: 'James Wilson',
+        dueDate: '2024-08-18',
+        borrowedDate: '2024-08-04',
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-44',
+        title: 'The Thursday Murder Club',
+        author: 'Richard Osman',
+        genre: 'Cozy Mystery',
+        year: 2020,
+        isbn: '9781984880567',
+        tags: ['Elderly', 'Murder', 'Friendship'],
+        summary: 'Four retirees meet weekly to investigate cold cases.',
+        isAvailable: true,
+        coverUrl: '/placeholder.svg'
+      },
+      {
+        id: 'fallback-45',
+        title: 'The Ten Thousand Doors of January',
+        author: 'Alix E. Harrow',
+        genre: 'Fantasy',
+        year: 2019,
+        isbn: '9780316421997',
+        tags: ['Portal Fantasy', 'Magic', 'Adventure'],
+        summary: 'A young woman discovers doors to other worlds.',
         isAvailable: true,
         coverUrl: '/placeholder.svg'
       }
