@@ -38,8 +38,8 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
           </h1>
           
           <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-            Transform your library management with intelligent automation, beautiful organization, 
-            and AI-powered insights that help you discover and manage your collection like never before.
+            Intelligent book discovery, seamless checkout flows, and analytics 
+            that reveal your reading patterns—all under the lamp of knowledge.
           </p>
         </div>
 
