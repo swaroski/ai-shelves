@@ -25,16 +25,7 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
       >
         {/* Main heading */}
         <div className="space-y-6">
-          <div 
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-black relative z-[100]"
-            style={{
-              backgroundColor: 'rgba(251, 191, 36, 0.3)',
-              backdropFilter: 'blur(8px)',
-              border: '2px solid rgba(251, 191, 36, 0.5)',
-              boxShadow: '0 4px 20px rgba(251, 191, 36, 0.2)',
-              marginTop: '70px'
-            }}
-          >
+          <div className="bg-yellow-400 text-black px-4 py-2 rounded-full text-sm font-semibold inline-flex items-center gap-2 border-2 border-yellow-500 shadow-xl">
             <Sparkles className="w-4 h-4" />
             AI-Powered Library Management
           </div>
