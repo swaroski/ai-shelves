@@ -25,8 +25,15 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
       >
         {/* Main heading */}
         <div className="space-y-6">
-          <div 
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-black mt-16 relative z-10"
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.1,
+              duration: 0.5,
+              ease: "easeInOut",
+            }}
+            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-black mt-16 relative z-20"
             style={{ 
               backgroundColor: 'rgba(251, 191, 36, 0.2)', 
               backdropFilter: 'blur(4px)',
@@ -35,7 +42,7 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
           >
             <Sparkles className="w-4 h-4" />
             AI-Powered Library Management
-          </div>
+          </motion.div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
             Welcome to
