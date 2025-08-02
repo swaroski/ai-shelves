@@ -21,7 +21,7 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="text-center space-y-8 max-w-4xl mx-auto px-4 pt-16"
+        className="text-center space-y-3 max-w-4xl mx-auto px-4 pt-26"
       >
         {/* Main heading */}
         <div className="space-y-8">
