@@ -25,24 +25,19 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
       >
         {/* Main heading */}
         <div className="space-y-6">
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.1,
-              duration: 0.5,
-              ease: "easeInOut",
-            }}
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-black mt-16 relative z-20"
-            style={{ 
-              backgroundColor: 'rgba(251, 191, 36, 0.2)', 
-              backdropFilter: 'blur(4px)',
-              border: '1px solid rgba(251, 191, 36, 0.3)'
+          <div 
+            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-black relative z-[100]"
+            style={{
+              backgroundColor: 'rgba(251, 191, 36, 0.3)',
+              backdropFilter: 'blur(8px)',
+              border: '2px solid rgba(251, 191, 36, 0.5)',
+              boxShadow: '0 4px 20px rgba(251, 191, 36, 0.2)',
+              marginTop: '70px'
             }}
           >
             <Sparkles className="w-4 h-4" />
             AI-Powered Library Management
-          </motion.div>
+          </div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
             Welcome to
@@ -51,9 +46,9 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
             </span>
           </h1>
           
-          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed mt-3">
-            Intelligent book discovery, seamless checkout flows, and analytics
-            that reveal your reading patterns—all under the lamp of knowledge.
+          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+            Transform your library management with intelligent automation, beautiful organization, 
+            and AI-powered insights that help you discover and manage your collection like never before.
           </p>
         </div>
 
