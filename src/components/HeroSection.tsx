@@ -12,38 +12,49 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSectionProps) => {
   return (
-    <LampContainer className="min-h-screen">
-      <motion.div
-        initial={{ opacity: 0.5, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="text-center space-y-3 max-w-4xl mx-auto px-4 pt-26"
-      >
-        {/* Main heading */}
-        <div className="space-y-8">
-          <div className="flex justify-center">
-            <div className="inline-flex items-center gap-2 bg-yellow-400 rounded-full px-6 py-3 text-sm font-semibold text-black border border-yellow-500 shadow-xl">
-              <Sparkles className="w-4 h-4" />
-              AI-Powered Library Management
-            </div>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
+    <div className="relative">
+      {/* Badge above the lamp */}
+      <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-50">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.1,
+            duration: 0.6,
+            ease: "easeInOut",
+          }}
+          className="inline-flex items-center gap-2 bg-yellow-400 rounded-full px-6 py-3 text-sm font-semibold text-black border border-yellow-500 shadow-xl"
+        >
+          <Sparkles className="w-4 h-4" />
+          AI-Powered Library Management
+        </motion.div>
+      </div>
+
+      <LampContainer className="min-h-screen">
+        <motion.div
+          initial={{ opacity: 0.5, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.3,
+            duration: 0.8,
+            ease: "easeInOut",
+          }}
+          className="text-center space-y-3 max-w-4xl mx-auto px-4"
+        >
+          {/* Main heading */}
+          <div className="space-y-8">
+            <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
             Welcome to
             <span className="block bg-gradient-to-br from-amber-200 to-amber-400 bg-clip-text text-transparent">
               Alexandria
             </span>
           </h1>
           
-          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed mt-1">
-            Intelligent book discovery, seamless checkout flows, and analytics 
-            that reveal your reading patterns—all under the lamp of knowledge.
-          </p>
-        </div>
+            <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed mt-1">
+              Intelligent book discovery, seamless checkout flows, and analytics 
+              that reveal your reading patterns—all under the lamp of knowledge.
+            </p>
+          </div>
 
         {/* CTA Buttons */}
         <motion.div
@@ -107,7 +118,8 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
             </CardContent>
           </Card>
         </motion.div>
-      </motion.div>
-    </LampContainer>
+        </motion.div>
+      </LampContainer>
+    </div>
   );
 };
