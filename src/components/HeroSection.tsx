@@ -25,8 +25,8 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
       >
         {/* Main heading */}
         <div className="space-y-8">
-          <div className="inline-flex items-center gap-2 bg-amber-400/30 backdrop-blur-sm rounded-full px-6 py-3 text-lg font-semibold text-black border border-amber-400/30 shadow-lg">
-            <Sparkles className="w-5 h-5" />
+          <div className="inline-flex items-center gap-2 bg-amber-400/30 backdrop-blur-sm rounded-full px-6 py-3 text-sm font-medium text-black border border-amber-400/30 shadow-lg mt-1">
+            <Sparkles className="w-4 h-4" />
             AI-Powered Library Management
           </div>
           
@@ -37,7 +37,7 @@ export const HeroSection = ({ onGetStarted, totalBooks, availableBooks }: HeroSe
             </span>
           </h1>
           
-          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed mt-1">
             Intelligent book discovery, seamless checkout flows, and analytics 
             that reveal your reading patterns—all under the lamp of knowledge.
           </p>
